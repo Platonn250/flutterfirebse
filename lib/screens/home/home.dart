@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firecourse/screens/home/brewlist.dart';
 import 'package:firecourse/sevices/auth.dart';
+import 'package:firecourse/sevices/database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
@@ -7,7 +11,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return StreamProvider<QuerySnapshot?>.value(
+      value: DatabaseService(uid: '').bews,
+      initialData: null,
       child: Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: AppBar(
@@ -23,6 +29,7 @@ class Home extends StatelessWidget {
                 label: Text("Logout"))
           ],
         ),
+        body: BrewList(),
       ),
     );
   }
