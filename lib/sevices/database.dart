@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firecourse/models/brew.dart';
 
 class DatabaseService {
   // collection preferencs
@@ -17,8 +18,12 @@ class DatabaseService {
     });
   }
 
+  // brew list firestore
+
+  List _brews = [];
+
   // get stream brews
-  Stream<QuerySnapshot> get bews {
+  Stream<QuerySnapshot> get brews {
     return brewCollection.snapshots();
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -10,12 +12,13 @@ class BrewList extends StatefulWidget {
 }
 
 class _BrewListState extends State<BrewList> {
+  // getting data from firebase "brew collections"
   Future getData() async {
     FirebaseFirestore.instance.collection('brews').get().then((value) {
       value.docs.forEach((element) {
-        print(element['name']);
-        print(element['strength']);
-        print(element['sugars']);
+        final name = element['name'];
+        final strength = element['strength'];
+        final sugars = element['sugars'];
       });
     });
   }
