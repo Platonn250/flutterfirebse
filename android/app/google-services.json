@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "457483018045",
+    "project_id": "firetest-43873",
+    "storage_bucket": "firetest-43873.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457483018045:android:22729702108de40e3baf54",
+        "android_client_info": {
+          "package_name": "com.example.firecourse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457483018045-96lj4hkec7dksl15b0oiu68cn60je3dp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI-JTrxQOPDm3AxpWM1svOCGkkhVGBwYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457483018045-96lj4hkec7dksl15b0oiu68cn60je3dp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
