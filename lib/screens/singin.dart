@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, sort_child_properties_last
 
 import 'package:firecourse/sevices/auth.dart';
+import 'package:firecourse/sharedcodes/constants.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -12,10 +13,13 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final _formKey = GlobalKey<FormState>();
   final AuthServices _auth = AuthServices();
+
   // text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +44,22 @@ class _SignInState extends State<SignIn> {
       body: Container(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
           child: Form(
+            key: _formKey,
             child: Column(children: [
               SizedBox(
                 height: 20.0,
               ),
               TextFormField(
+                cursorColor: Colors.black,
+                // style: TextStyle(color: Colors.red, fontSize: 16),
+                decoration: textInputDecoration,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter username';
+                  } else {
+                    return null;
+                  }
+                },
                 onChanged: (value) {
                   setState(() {
                     email = value;
@@ -55,6 +70,16 @@ class _SignInState extends State<SignIn> {
                 height: 20,
               ),
               TextFormField(
+                decoration: textInputDecoration,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter password';
+                  } else if (value.length <= 6) {
+                    return "password Must be > 6 chars";
+                  } else {
+                    return null;
+                  }
+                },
                 onChanged: (value) {
                   setState(() {
                     password = value;
@@ -87,10 +112,23 @@ class _SignInState extends State<SignIn> {
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.pink)),
                 onPressed: () async {
-                  print(email);
-                  print(password);
+                  if (_formKey.currentState!.validate()) {
+                    dynamic result =
+                        await _auth.signInWithEmailAndPassword(email, password);
+                    // print("valid");
+                    if (result == null) {
+                      setState(() {
+                        error = "Can't Signin";
+                      });
+                    }
+                  }
+                  ;
                 },
                 child: Text("Sign In"),
+              ),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red, fontSize: 16),
               )
             ]),
           )),

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:firecourse/sevices/auth.dart';
+import 'package:firecourse/sharedcodes/constants.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -13,8 +14,10 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final AuthServices _auth = AuthServices();
+  final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+  String error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,14 +38,27 @@ class _RegisterState extends State<Register> {
         elevation: 0.0,
         title: Text("Register here"),
       ),
+
+      // credential form
       body: Container(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
           child: Form(
+            key: _formKey,
             child: Column(children: [
               SizedBox(
                 height: 20.0,
               ),
+
+              // Email textfield
               TextFormField(
+                decoration: textInputDecoration,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter username';
+                  } else {
+                    return null;
+                  }
+                },
                 onChanged: (value) {
                   setState(() {
                     email = value;
@@ -52,7 +68,19 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 height: 20,
               ),
+
+              // password textfield
               TextFormField(
+                decoration: textInputDecoration,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter password';
+                  } else if (value.length <= 6) {
+                    return "password Must be > 6 chars";
+                  } else {
+                    return null;
+                  }
+                },
                 onChanged: (value) {
                   setState(() {
                     password = value;
@@ -85,10 +113,25 @@ class _RegisterState extends State<Register> {
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.pink)),
                 onPressed: () async {
-                  print(email);
-                  print(password);
+                  if (_formKey.currentState!.validate()) {
+                    dynamic result = await _auth.registerWithEmailAndPassword(
+                        email, password);
+                    if (result == null) {
+                      setState(() {
+                        error = "Please suply valid email";
+                      });
+                    }
+                  }
+                  ;
                 },
                 child: Text("Register"),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red, fontSize: 16),
               )
             ]),
           )),
