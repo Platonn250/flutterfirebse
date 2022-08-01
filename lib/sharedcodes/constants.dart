@@ -4,7 +4,7 @@ const textInputDecoration = InputDecoration(
   hintText: 'Password',
   fillColor: Colors.white,
   filled: true,
-  hintStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white24),
+  hintStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black38),
   focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(color: Colors.pink, width: 2),
   ),

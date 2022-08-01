@@ -1,25 +1,28 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, sort_child_properties_last
 
 import 'package:firecourse/sevices/auth.dart';
 import 'package:firecourse/sharedcodes/constants.dart';
 import 'package:firecourse/sharedcodes/loadin.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget {
+class SignIn extends StatefulWidget {
   final Function toggleView;
-  const Register({Key? key, required this.toggleView}) : super(key: key);
+  const SignIn({Key? key, required this.toggleView}) : super(key: key);
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<SignIn> createState() => _SignInState();
 }
 
-class _RegisterState extends State<Register> {
-  final AuthServices _auth = AuthServices();
+class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
+  final AuthServices _auth = AuthServices();
   bool loading = false;
+
+  // text field state
   String email = '';
   String password = '';
   String error = '';
+
   @override
   Widget build(BuildContext context) {
     return loading
@@ -36,14 +39,12 @@ class _RegisterState extends State<Register> {
                       widget.toggleView();
                     },
                     icon: Icon(Icons.person),
-                    label: Text("Sign in"))
+                    label: Text("Register"))
               ],
               backgroundColor: Colors.brown[300],
               elevation: 0.0,
-              title: Text("Register here"),
+              title: Text("Sign in here"),
             ),
-
-            // credential form
             body: Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                 child: Form(
@@ -52,9 +53,9 @@ class _RegisterState extends State<Register> {
                     SizedBox(
                       height: 20.0,
                     ),
-
-                    // Email textfield
                     TextFormField(
+                      cursorColor: Colors.black,
+                      // style: TextStyle(color: Colors.red, fontSize: 16),
                       decoration:
                           textInputDecoration.copyWith(hintText: 'Email'),
                       validator: (value) {
@@ -73,8 +74,6 @@ class _RegisterState extends State<Register> {
                     SizedBox(
                       height: 20,
                     ),
-
-                    // password textfield
                     TextFormField(
                       decoration:
                           textInputDecoration.copyWith(hintText: 'Password'),
@@ -120,26 +119,25 @@ class _RegisterState extends State<Register> {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.pink)),
                       onPressed: () async {
-                        setState(() {
-                          loading = true;
-                        });
                         if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            loading = true;
+                          });
                           dynamic result = await _auth
-                              .registerWithEmailAndPassword(email, password);
+                              .signInWithEmailAndPassword(email, password);
+                          // print("valid");
                           if (result == null) {
                             setState(() {
-                              error = "Please suply valid email";
+                              error = "Can't Signin";
                               loading = false;
                             });
                           }
                         }
                         ;
                       },
-                      child: Text("Register"),
+                      child: Text("Sign In"),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 20),
                     Text(
                       error,
                       style: TextStyle(color: Colors.red, fontSize: 16),

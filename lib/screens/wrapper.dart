@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firecourse/models/user.dart';
 import 'package:firecourse/screens/authenticate/authenticate.dart';
 import 'package:firecourse/screens/home/home.dart';
-import 'package:firecourse/screens/singin.dart';
+import 'package:firecourse/screens/authenticate/singin.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

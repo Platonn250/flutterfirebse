@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:firecourse/screens/authenticate/register.dart';
-import 'package:firecourse/screens/singin.dart';
+import 'package:firecourse/screens/authenticate/singin.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {
